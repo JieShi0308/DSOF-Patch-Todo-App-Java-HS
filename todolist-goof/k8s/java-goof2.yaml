@@ -24,6 +24,18 @@ spec:
           runAsNonRoot: true
           runAsUser: 65534 #nobody
           runAsGroup: 65534 #nobody
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          runAsUser: 10000
+          capabilities:
+            drop: 
+              - ALL
+            add: ["NET_ADMIN"]
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "128Mi"
+        livenessProbe:
       restartPolicy: Always
 ---
 apiVersion: v1
@@ -40,3 +52,5 @@ spec:
       targetPort: 8080
   selector:
     app: goof
+  loadBalancerSourceRanges:
+   - "192.196.0.0/24"

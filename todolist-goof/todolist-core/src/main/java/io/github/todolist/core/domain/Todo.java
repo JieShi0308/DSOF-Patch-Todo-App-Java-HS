@@ -115,7 +115,7 @@ public class Todo implements Serializable {
 	        			        		
 		} catch (Exception e) {
 			// if an error occurs, send back the original title
-			e.printStackTrace();
+			log.error(e);
 		}
 		return title;
 	}

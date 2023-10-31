@@ -22,6 +22,18 @@ spec:
         name: java-goof
         securityContext:
           readOnlyRootFilesystem: true
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 10000
+          capabilities:
+            drop: 
+              - ALL
+            add: ["NET_ADMIN"]
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "128Mi"
+        livenessProbe:
         volumeMounts:
           - mountPath: /usr/local/tomcat/temp
             name: tomcat-temp
@@ -53,3 +65,5 @@ spec:
       targetPort: 8080
   selector:
     app: goof
+  loadBalancerSourceRanges:
+   - "192.196.0.0/24"
